@@ -20,6 +20,8 @@ typedef struct
 
 class CoolingLimit
 {
+   IAlert &m_alerter;
+
    BreachType inferBreach(double value, double lowerLimit, double upperLimit);
 public:
    void checkAndAlert(BatteryCharacter batteryChar,
