@@ -1,4 +1,6 @@
 #pragma once
+#include "string"
+using namespace std;
 
 typedef enum {
   COOLING_PASSIVE,
@@ -21,6 +23,6 @@ typedef enum {
 
 typedef struct {
   CoolingType coolingType;
-  char brand[48];
+  string brand;
 } BatteryCharacter;
 

@@ -20,11 +20,9 @@ typedef struct
 
 class CoolingLimit
 {
-   IAlert &m_alerter;
-
    BreachType inferBreach(double value, double lowerLimit, double upperLimit);
 public:
-   void checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar,
+   void checkAndAlert(BatteryCharacter batteryChar,
          double temperatureInC);
    CoolingLimit(IAlert &alerter) : m_alerter(alerter)
    {}

@@ -21,8 +21,7 @@ BreachType CoolingLimit::inferBreach(double value, double lowerLimit,
    return COOLING_STATUS_NORMAL;
 }
 
-void CoolingLimit::checkAndAlert(AlertTarget alertTarget,
-      BatteryCharacter batteryChar, double temperatureInC)
+void CoolingLimit::checkAndAlert(BatteryCharacter batteryChar, double temperatureInC)
 {
    BreachType breachType = inferBreach(temperatureInC,
          coolingThresholds[batteryChar.coolingType].lowerLimit,

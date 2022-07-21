@@ -16,12 +16,10 @@ void printstub(char *ptr)
 //---------------To Email------------------------------------------------//
 // -----------------PASSIVE-----------------------------------------------------
 EmailAlert emailAlert("abc@xyz");
-
-ControllerAlert controllerAlert(0xff11);
 CoolingLimit batCooling(emailAlert);
 
 ControllerAlert controllerAlert(0x1234);
-CoolingLimit batCooling(controllerAlert);
+CoolingLimit batCoolingController(controllerAlert);
 
 TEST_CASE("COOLING Passive, Alert to Email, Normal")
 {
@@ -119,7 +117,7 @@ TEST_CASE("COOLING Passive, Alert to Controller, Normal")
 
    BatteryCharacter battery = { .coolingType = COOLING_PASSIVE, .brand =
          "Renault" };
-   batCooling.checkAndAlert(TO_CONTROLLER, battery, 0);
+   batCoolingController.checkAndAlert(TO_CONTROLLER, battery, 0);
    REQUIRE(controllerAlert.getBreachType() == COOLING_STATUS_NORMAL);
 }
 
@@ -127,7 +125,7 @@ TEST_CASE("COOLING Passive, Alert to Controller, low")
 {
    BatteryCharacter battery = { .coolingType = COOLING_PASSIVE, .brand =
          "Nissan" };
-   batCooling.checkAndAlert(TO_CONTROLLER, battery, -1);
+   batCoolingController.checkAndAlert(TO_CONTROLLER, battery, -1);
    REQUIRE(controllerAlert.getBreachType() == COOLING_STATUS_TOO_LOW);
 }
 
@@ -135,7 +133,7 @@ TEST_CASE("COOLING Passive, Alert to Controller, high")
 {
 
    BatteryCharacter battery = { .coolingType = COOLING_PASSIVE, .brand = "GM" };
-   batCooling.checkAndAlert(TO_CONTROLLER, battery, 36);
+   batCoolingController.checkAndAlert(TO_CONTROLLER, battery, 36);
    REQUIRE(controllerAlert.getBreachType() == COOLING_STATUS_TOO_HIGH);
 }
 
@@ -145,7 +143,7 @@ TEST_CASE("COOLING_HI_ACTIVE, Alert to Controller, Normal")
 {
    BatteryCharacter battery =
          { .coolingType = COOLING_HI_ACTIVE, .brand = "aa" };
-   batCooling.checkAndAlert(TO_CONTROLLER, battery, 0);
+   batCoolingController.checkAndAlert(TO_CONTROLLER, battery, 0);
    REQUIRE(controllerAlert.getBreachType() == COOLING_STATUS_NORMAL);
 }
 
@@ -154,7 +152,7 @@ TEST_CASE("COOLING_HI_ACTIVE, Alert to Controller, low")
 
    BatteryCharacter battery =
          { .coolingType = COOLING_HI_ACTIVE, .brand = "BB" };
-   batCooling.checkAndAlert(TO_CONTROLLER, battery, -1);
+   batCoolingController.checkAndAlert(TO_CONTROLLER, battery, -1);
    REQUIRE(controllerAlert.getBreachType() == COOLING_STATUS_TOO_LOW);
 }
 
@@ -163,7 +161,7 @@ TEST_CASE("COOLING_HI_ACTIVE, Alert to Controller, high")
 
    BatteryCharacter battery =
          { .coolingType = COOLING_HI_ACTIVE, .brand = "CC" };
-   batCooling.checkAndAlert(TO_CONTROLLER, battery, 46);
+   batCoolingController.checkAndAlert(TO_CONTROLLER, battery, 46);
    REQUIRE(controllerAlert.getBreachType() == COOLING_STATUS_TOO_HIGH);
 }
 
@@ -174,7 +172,7 @@ TEST_CASE("COOLING_MED_ACTIVE, Alert to Controller, Normal")
    BatteryCharacter battery =
          { .coolingType = COOLING_MED_ACTIVE, .brand = "Z" };
 
-   batCooling.checkAndAlert(TO_CONTROLLER, battery, 0);
+   batCoolingController.checkAndAlert(TO_CONTROLLER, battery, 0);
    REQUIRE(controllerAlert.getBreachType() == COOLING_STATUS_NORMAL);
 }
 
@@ -182,7 +180,7 @@ TEST_CASE("COOLING_MED_ACTIVE, Alert to Controller, low")
 {
    BatteryCharacter battery =
          { .coolingType = COOLING_MED_ACTIVE, .brand = "y" };
-   batCooling.checkAndAlert(TO_CONTROLLER, battery, -1);
+   batCoolingController.checkAndAlert(TO_CONTROLLER, battery, -1);
    REQUIRE(controllerAlert.getBreachType() == COOLING_STATUS_TOO_LOW);
 }
 
@@ -190,7 +188,7 @@ TEST_CASE("COOLING_MED_ACTIVE, Alert to Controller, high")
 {
    BatteryCharacter battery =
          { .coolingType = COOLING_MED_ACTIVE, .brand = "x" };
-   batCooling.checkAndAlert(TO_CONTROLLER, battery, 41);
+   batCoolingController.checkAndAlert(TO_CONTROLLER, battery, 41);
    REQUIRE(controllerAlert.getBreachType() == COOLING_STATUS_TOO_HIGH);
 }
 
