@@ -1,6 +1,6 @@
 //#define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 
-#include "catch.hpp"
+#include "test/catch.hpp"
 #include "cooling_alert_controller.hpp"
 
 TEST_CASE("Cooling status controller alert normal")
@@ -23,19 +23,19 @@ TEST_CASE("Cooling status controller alert high")
 
 TEST_CASE("Cooling status controller alert low")
 {
-   ControllerAlert controllerAlert(0);
+   ControllerAlert controllerAlert(5);
    controllerAlert.SendAlertMsg(COOLING_STATUS_TOO_LOW);
 
-   REQUIRE(controllerAlert.getHeader() == 0);
+   REQUIRE(controllerAlert.getHeader() == 5);
    REQUIRE(controllerAlert.getBreachType() == COOLING_STATUS_TOO_LOW);
 }
 
 TEST_CASE("Cooling status controller alert invalid")
 {
-   ControllerAlert controllerAlert(0);
+   ControllerAlert controllerAlert(7);
    controllerAlert.SendAlertMsg(COOLING_STATUS_MAX);
 
-   REQUIRE(controllerAlert.getHeader() == 0);
+   REQUIRE(controllerAlert.getHeader() == 7);
    REQUIRE(controllerAlert.getBreachType() == COOLING_STATUS_MAX);
 }
 
